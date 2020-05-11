@@ -1,3 +1,28 @@
-= PgBouncer Docker image
+= PgBouncer Container Image
 
-A minimal PgBouncer image based on Red Hat UBI 7.
+A minimal PgBouncer container image, based on https://developers.redhat.com/articles/ubi-faq/[Red Hat UBI 7].
+
+== Usage
+
+Using a `DATABASE_URL` environment variable:
+
+----
+podman run --rm \
+    --name pgbouncer
+    --env DATABASE_URL="postgres://user:pass@postgres-host/database" \
+    --publish 5432:5432 \
+    quay.io/pgbouncer-operator/pgbouncer
+----
+
+Or using separate environment variables:
+
+----
+podman run --rm \
+    --name pgbouncer
+    --env DB_USER=user \
+    --env DB_PASSWORD=pass \
+    --env DB_HOST=postgres-host \
+    --env DB_NAME=database \
+    --publish 5432:5432 \
+    quay.io/pgbouncer-operator/pgbouncer
+----
